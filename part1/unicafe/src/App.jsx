@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Display from "./components/Display";
 import Statistics from './components/Statistics';
 
+// Exercise 1.8: I already did it using a 'Statistics' component from the begining
 const App = () => {
   // guarda los clics de cada botón en su propio estado
   const [good, setGood] = useState(0)
