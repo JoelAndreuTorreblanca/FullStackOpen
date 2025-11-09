@@ -1,5 +1,3 @@
-export default function Stat({ text, value }) {
-  return (
-    <div>{text} {value}</div>
-  )
-}
+const Stat = ({ text, value }) => <div>{text} {value}</div>
+
+export default Stat;
