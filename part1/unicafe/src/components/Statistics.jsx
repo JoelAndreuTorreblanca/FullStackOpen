@@ -17,12 +17,16 @@ export default function Statistics({ good, neutral, bad }) {
   return (
     <div>
         <h2>Statistics</h2>
-        <Stat text="Good" value={ good } />
-        <Stat text="Neutral" value={ neutral } />
-        <Stat text="Bad" value={ bad } />
-        <Stat text="All" value={ all } />
-        <Stat text="Average" value={ average } />
-        <Stat text="Positive" value={ positive } />
+        <table>
+            <tbody>
+                <Stat text="Good" value={ good } />
+                <Stat text="Neutral" value={ neutral } />
+                <Stat text="Bad" value={ bad } />
+                <Stat text="All" value={ all } />
+                <Stat text="Average" value={ average } />
+                <Stat text="Positive" value={ positive + ' %' } />
+            </tbody>
+        </table>
     </div>
   )
 }
