@@ -5,6 +5,15 @@ export default function Statistics({ good, neutral, bad }) {
   const average = all > 0 ? (good - bad) / all : 0;
   const positive = all > 0 ? (good * 100) / all : 0;
 
+  if(all <= 0){
+    return (
+        <div>
+            <h2>Statistics</h2>
+            No feedback given
+        </div>
+    );
+  }
+
   return (
     <div>
         <h2>Statistics</h2>
