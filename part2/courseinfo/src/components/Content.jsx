@@ -1,5 +1,6 @@
 import Part from "./Part";
 
+// Exercise 2.3: I already did it
 export default function Content({ parts }) {
   const allExercises = parts.map(part => part.exercises);
   const totalExercises = allExercises.reduce((partialSum, a) => partialSum + a, 0);
