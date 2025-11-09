@@ -3,6 +3,7 @@ import Display from "./components/Display";
 import Statistics from './components/Statistics';
 
 // Exercise 1.8: I already did it using a 'Statistics' component from the begining
+// Exercise 1.10: I already did it using a 'Button' and a 'Stat' components from the begining
 const App = () => {
   // guarda los clics de cada botón en su propio estado
   const [good, setGood] = useState(0)
