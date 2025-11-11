@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
+import Person from "./components/Person";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -39,29 +43,21 @@ const App = () => {
 
     if(filter != '' && !name.includes(condition)) return;
 
-    return <div key={person.id}>{person.name} {person.number}</div>
+    return  <Person key={ person.id } person={ person } />;
   });
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={filter} onChange={handleFilter} />
-      </div>
-      <h2>add a new</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={handleInputName} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleInputNumber} />
-        </div>
-        <div>
-          <button type="submit" onClick={handleSubmit}>add</button>
-        </div>
-      </form>
+      <Filter filter={ filter } handleFilter={ handleFilter } />
+      <h2>Add a new</h2>
+      <PersonForm
+        newName={ newName } handleInputName={ handleInputName }
+        newNumber={ newNumber } handleInputNumber={ handleInputNumber }
+        handleSubmit={ handleSubmit }
+      />
       <h2>Numbers</h2>
-      {filteredPersons}
+      <Persons filteredPersons={ filteredPersons } />
     </div>
   )
 }
