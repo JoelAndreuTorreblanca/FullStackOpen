@@ -15,7 +15,7 @@ const App = () => {
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
-        console.log('promise fulfilled');
+        console.log('promise fulfilled', response.data);
         setPersons(response.data);
       })
   }, []);
@@ -32,14 +32,18 @@ const App = () => {
       return;
     }
 
-    const newPerson = persons.concat({
+    const newPerson = {
       name: newName,
-      number: newNumber,
-      id: persons.length + 1
-    });
-    setPersons(newPerson);
-    setNewName('');
-    setNewNumber('');
+      number: newNumber
+    };
+
+    axios
+      .post('http://localhost:3001/persons', newPerson)
+      .then(response => {
+        setPersons(persons.concat(response.data));
+        setNewName('');
+        setNewNumber('');
+      });
   }
 
   const filteredPersons = persons.map(person => {
