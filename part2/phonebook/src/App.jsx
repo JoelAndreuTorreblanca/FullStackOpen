@@ -11,15 +11,16 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
 
+  // Obtener toda la información
   useEffect(() => {
     personService
       .getAll()
       .then(data => {
-        console.log(data);
         setPersons(data);
       })
   }, []);
 
+  // Controladores de acciones
   const handleInputName = (e) => setNewName(e.target.value);
   const handleInputNumber = (e) => setNewNumber(e.target.value);
   const handleFilter = (e) => setFilter(e.target.value);
@@ -37,6 +38,7 @@ const App = () => {
       number: newNumber
     };
 
+    // Crear persona
     personService
       .create(newPerson)
       .then(data => {
@@ -46,13 +48,24 @@ const App = () => {
       });
   }
 
+  const handleRemove = (person) => {
+    if(!window.confirm(`Delete ${person.name}?`)) return;
+
+    personService
+      .remove(person.id)
+      .then(data => {
+        setPersons(persons.filter(person => person.id !== data.id));
+      });
+  }
+
+  // Filtrar personas
   const filteredPersons = persons.map(person => {
     const condition = filter.toLowerCase();
     const name = person.name.toLowerCase();
 
     if(filter != '' && !name.includes(condition)) return;
 
-    return  <Person key={ person.id } person={ person } />;
+    return  <Person key={ person.id } person={ person } onRemove={() => { handleRemove(person) }} />;
   });
 
   return (

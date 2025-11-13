@@ -1,5 +1,5 @@
-export default function Person({ person }) {
+export default function Person({ person, onRemove }) {
   return (
-    <div>{person.name} {person.number}</div>
+    <div>{person.name} {person.number} <button onClick={onRemove}>delete</button></div>
   )
 }
