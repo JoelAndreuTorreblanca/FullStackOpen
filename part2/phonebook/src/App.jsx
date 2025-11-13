@@ -29,10 +29,31 @@ const App = () => {
     e.preventDefault();
 
     if(persons.some(person => person.name === newName)){
-      alert(`${newName} is already added to phonebook`);
-      return;
+      if(!window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) return;
+      editExistingNumber();
+    }else{
+      createNewPerson();
     }
+  }
 
+  const editExistingNumber = () => {
+    const personToUpdate = persons.find(person => person.name === newName);
+
+    const updatedPerson = {
+      ...personToUpdate,
+      number: newNumber
+    };
+
+    personService
+      .update(updatedPerson.id, updatedPerson)
+      .then(data => {
+        setPersons(persons.map(person => person.id !== updatedPerson.id ? person : data))
+        setNewName('');
+        setNewNumber('');
+      });
+  }
+
+  const createNewPerson = () => {
     const newPerson = {
       name: newName,
       number: newNumber
