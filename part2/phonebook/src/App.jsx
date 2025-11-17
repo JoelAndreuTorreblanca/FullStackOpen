@@ -105,13 +105,13 @@ const App = () => {
   }
 
   // Filtrar personas
-  const filteredPersons = persons.map(person => {
+  const filteredPersons = persons.filter(person => {
+    if(filter === '') return true;
+
     const condition = filter.toLowerCase();
     const name = person.name.toLowerCase();
 
-    if(filter != '' && !name.includes(condition)) return;
-
-    return  <Person key={ person.id } person={ person } onRemove={() => { handleRemove(person) }} />;
+    return name.includes(condition);
   });
 
   return (
@@ -127,7 +127,7 @@ const App = () => {
         handleSubmit={ handleSubmit }
       />
       <h2>Numbers</h2>
-      <Persons filteredPersons={ filteredPersons } />
+      <Persons handleRemove={ handleRemove } filteredPersons={ filteredPersons } />
     </div>
   )
 }

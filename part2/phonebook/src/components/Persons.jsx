@@ -1,7 +1,9 @@
-export default function Persons({ filteredPersons }) {
+import Person from "./Person"
+
+export default function Persons({ filteredPersons, handleRemove }) {
   return (
     <div>
-        {filteredPersons}
+        { filteredPersons.map(person => <Person key={ person.id } person={ person } onRemove={() => { handleRemove(person) }} />) }
     </div>
   )
 }
