@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
   const [success, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
 
   // Obtener toda la información
   useEffect(() => {
@@ -50,9 +51,13 @@ const App = () => {
       .update(updatedPerson.id, updatedPerson)
       .then(data => {
         setPersons(persons.map(person => person.id !== updatedPerson.id ? person : data));
-        handleSuccess(`New number ${newNumber} for ${personToUpdate.name}`);
+        handleNotification(`New number ${newNumber} for ${personToUpdate.name}`);
         setNewName('');
         setNewNumber('');
+      })
+      .catch(error => {
+          console.log("Error", error);
+          handleNotification(`Information of ${personToUpdate.name} has already been removed from server`, true);
       });
   }
 
@@ -67,7 +72,7 @@ const App = () => {
       .create(newPerson)
       .then(data => {
         setPersons(persons.concat(data));
-        handleSuccess(`Added ${newName}`);
+        handleNotification(`Added ${newName}`);
         setNewName('');
         setNewNumber('');
       });
@@ -83,10 +88,19 @@ const App = () => {
       });
   }
 
-  const handleSuccess = (msg) => {
-    setSuccess(msg);
+  const handleNotification = (msg, error = false) => {
+    if(error){
+      setError(msg);
+    }else{
+      setSuccess(msg);
+    }
+
     setTimeout(() => {
-      setSuccess(null)
+      if(error){
+        setError(null)
+      }else{
+        setSuccess(null)
+      }
     }, 4000);
   }
 
@@ -105,7 +119,8 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter filter={ filter } handleFilter={ handleFilter } />
       <h2>Add a new</h2>
-      <Notification message={ success } />
+      <Notification message={ success } type="success" />
+      <Notification message={ error } type="error" />
       <PersonForm
         newName={ newName } handleInputName={ handleInputName }
         newNumber={ newNumber } handleInputNumber={ handleInputNumber }

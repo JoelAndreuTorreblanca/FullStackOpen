@@ -1,7 +1,7 @@
-export default function Notification({ message }) {
+export default function Notification({ message, type }) {
   if (message === null) return;
 
   return (
-    <div className="success">{ message }</div>
+    <div className={ type }>{ message }</div>
   )
 }
