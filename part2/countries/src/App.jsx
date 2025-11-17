@@ -40,7 +40,7 @@ function App() {
         <CountryDetail country={ filteredCountries[0] } />
       :
         // Listado
-        <CountryList items={ filteredCountries } search={ search } />
+        <CountryList items={ filteredCountries } search={ search } setSearch={ setSearch } />
       }
     </div>
   )

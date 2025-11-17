@@ -1,6 +1,6 @@
 import Country from "./Country";
 
-export default function CountryList({ items, search }) {
+export default function CountryList({ items, search, setSearch }) {
   // Si la app no se ha tocado, salimos
   if(items.length > 0 && search === '') return;
 
@@ -12,7 +12,7 @@ export default function CountryList({ items, search }) {
 
   return (
     <div>
-      { items.map(item => <Country key={ item.cca2 } item={ item } />) }
+      { items.map(item => <Country key={ item.cca2 } item={ item } setSearch={ setSearch } />) }
     </div>
   )
 }
