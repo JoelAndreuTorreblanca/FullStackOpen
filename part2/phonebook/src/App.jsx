@@ -4,12 +4,14 @@ import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import Person from "./components/Person";
 import personService from "./services/persons";
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+  const [success, setSuccess] = useState(null);
 
   // Obtener toda la información
   useEffect(() => {
@@ -47,7 +49,8 @@ const App = () => {
     personService
       .update(updatedPerson.id, updatedPerson)
       .then(data => {
-        setPersons(persons.map(person => person.id !== updatedPerson.id ? person : data))
+        setPersons(persons.map(person => person.id !== updatedPerson.id ? person : data));
+        handleSuccess(`New number ${newNumber} for ${personToUpdate.name}`);
         setNewName('');
         setNewNumber('');
       });
@@ -64,6 +67,7 @@ const App = () => {
       .create(newPerson)
       .then(data => {
         setPersons(persons.concat(data));
+        handleSuccess(`Added ${newName}`);
         setNewName('');
         setNewNumber('');
       });
@@ -77,6 +81,13 @@ const App = () => {
       .then(data => {
         setPersons(persons.filter(person => person.id !== data.id));
       });
+  }
+
+  const handleSuccess = (msg) => {
+    setSuccess(msg);
+    setTimeout(() => {
+      setSuccess(null)
+    }, 4000);
   }
 
   // Filtrar personas
@@ -94,6 +105,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter filter={ filter } handleFilter={ handleFilter } />
       <h2>Add a new</h2>
+      <Notification message={ success } />
       <PersonForm
         newName={ newName } handleInputName={ handleInputName }
         newNumber={ newNumber } handleInputNumber={ handleInputNumber }
