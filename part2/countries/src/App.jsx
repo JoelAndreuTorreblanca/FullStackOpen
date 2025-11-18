@@ -5,6 +5,7 @@ import CountryList from './components/CountryList';
 import CountryDetail from './components/CountryDetail';
 
 function App() {
+  const api_key = import.meta.env.VITE_OPEN_WEATHER_MAP_KEY;
   const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/api/';
   const [countries, setCountries] = useState([]);
   const [search, setSearch] = useState('');
@@ -37,7 +38,7 @@ function App() {
       <SearchBar handleSearch={ handleSearch } search={ search }/>
       {filteredCountries.length == 1 ?
         // Detalles del país
-        <CountryDetail country={ filteredCountries[0] } />
+        <CountryDetail api_key={ api_key } country={ filteredCountries[0] } />
       :
         // Listado
         <CountryList items={ filteredCountries } search={ search } setSearch={ setSearch } />
