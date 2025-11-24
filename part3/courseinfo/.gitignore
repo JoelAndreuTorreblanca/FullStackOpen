@@ -1,0 +1,31 @@
+# Plantilla dada por Gemini
+# Dependencias
+/node_modules
+/jspm_packages
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.log
+
+# Directorios de Build/Output
+/dist
+/build
+/out
+/release
+
+# Variables de entorno y configuraciones secretas
+.env
+.env.*
+*.config.js
+
+# Datos de Caché de IDE/Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Otros archivos de NPM
+/package-lock.json  # A veces se incluye, pero muchos prefieren ignorarlo
+/yarn.lock          # A veces se incluye, pero muchos prefieren ignorarlo
